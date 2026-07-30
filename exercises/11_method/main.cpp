@@ -1,14 +1,23 @@
 #include "../exercise.h"
 
 struct Fibonacci {
-    unsigned long long cache[128];
-    int cached;
+    unsigned long long cache[128]={0};
+    int cached=0;
 
     // TODO: 实现正确的缓存优化斐波那契计算
-    unsigned long long get(int i) {
-        for (; false; ++cached) {
-            cache[cached] = cache[cached - 1] + cache[cached - 2];
+    unsigned long long get(int i) { if (i < 0 || i >= 128) {
+            throw std::out_of_range("Index out of range");}
+if (i < cached) {
+            return cache[i];// 返回缓存值
         }
+ cache[0] = 0;// F(0)
+        if (i > 0) {
+            cache[1] = 1;// F(1)
+        }
+        for (int j=2; j<=i; ++j) {
+            cache[j] = cache[j - 1] + cache[j- 2];
+        }
+         cached = i + 1;                          
         return cache[i];
     }
 };
