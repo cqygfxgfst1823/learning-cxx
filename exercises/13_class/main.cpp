@@ -14,13 +14,27 @@ class Fibonacci {
 
 public:
     // TODO: 实现构造器
+Fibonacci() : cache{0, 1}, cached(2)
     // Fibonacci()
 
     // TODO: 实现正确的缓存优化斐波那契计算
     size_t get(int i) {
-        for (; false; ++cached) {
-            cache[cached] = cache[cached - 1] + cache[cached - 2];
+      if (i < 0 || i >= 16) {
+            throw std::out_of_range("Index out of range");// 控制范围
         }
+
+        // 判断缓存是否已经计算过
+        if (i < cached) {
+            return cache[i];// 返回缓存的值
+        }
+
+        // 计算并填充
+        for (int j = cached; j <= i; ++j) {
+            cache[j] = cache[j - 1] + cache[j - 2];// 填充缓存
+        }
+
+        // 更新已缓存的最大索引
+        cached = i + 1;  
         return cache[i];
     }
 };
