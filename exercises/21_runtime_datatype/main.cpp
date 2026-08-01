@@ -25,6 +25,12 @@ float sigmoid(float x) {
 TaggedUnion sigmoid_dyn(TaggedUnion x) {
     TaggedUnion ans{x.type};
     // TODO: 根据 type 调用 sigmoid
+if (x.type == DataType::Float) {
+        ans.f = sigmoid(x.f);// 调用处理 float 的 sigmoid 函数
+    } else if (x.type == DataType::Double) {
+        ans.d = sigmoid(x.d);// 调用处理 double 的 sigmoid 函数
+    }
+    
     return ans;
 }
 
